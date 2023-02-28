@@ -4,7 +4,16 @@
   box-sizing: border-box;
 }
 
+:root {
+  --black: #000;
+  --main-color: #C4D7F2;
+}
+
 body {
   font-family: "Quicksand", sans-serif;
   font-size: 1rem;
+}
+
+.app {
+  padding: 0 2%;
 }
