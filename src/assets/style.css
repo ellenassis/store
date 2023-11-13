@@ -11,12 +11,12 @@
   @apply text-4xl md:text-5xl;
  }
  h2 {
-  @apply text-xl;
+  @apply text-3xl;
  }
 }
 
-.app {
-	max-width: 1500px;
+.page-content {
+	max-width: 1400px;
 	margin: 0 auto;
     padding: 0 1rem;
 }
