@@ -14,7 +14,9 @@
   @apply text-3xl;
  }
 }
-
+.app {
+    position: relative;
+}
 .page-content {
 	max-width: 1400px;
 	margin: 0 auto;
