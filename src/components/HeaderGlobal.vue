@@ -17,11 +17,6 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: 'Header'
-}
-</script>
 <style>
 .header {
   max-width: 1400px;

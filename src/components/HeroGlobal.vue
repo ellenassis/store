@@ -13,11 +13,6 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: 'Hero'
-}
-</script>
 <style>
 .hero {
   min-height: 70vh;
