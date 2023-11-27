@@ -1,4 +1,5 @@
 <template lang="">
+  <ShoppingBag :show="showCart" @close="closeCart" />
   <div class="mt-12">
     <div class="product mt-6">
       <div v-for="(product, index) in products" :key="index" class="w-full text-center">
@@ -23,6 +24,7 @@
 </template>
 <script lang="ts">
 import { onMounted, computed, ref } from 'vue'
+import ShoppingBag from './ShoppingBag.vue'
 import { useProducts } from '../stores/products'
 
 interface Product {
@@ -33,6 +35,9 @@ interface Product {
 }
 
 export default {
+  components: {
+    ShoppingBag,
+  },
   setup() {
     const store = useProducts()
 
@@ -43,8 +48,19 @@ export default {
       store.fetchProducts()
     })
 
+    const showCart = ref(false);
+
+    const openCart = () => {
+      showCart.value = true;
+    }
+
+    const closeCart = () => {
+      showCart.value = false;
+    }
+
     const active = ref<Number | null>(null)
 
+  
     return {
       products,
       active,
@@ -55,8 +71,12 @@ export default {
         active.value = null
       },
       addProduct: (product: Product) => {
-        store.addProductInBag(product)
+        store.addProductInBag(product);
+        openCart();
       },
+      showCart,
+      openCart,
+      closeCart
     }
   },
   }

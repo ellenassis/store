@@ -1,4 +1,5 @@
 <template lang="">
+  <ShoppingBag :show="showCart" @close="closeCart" />
   <div class="bg-white fixed z-10 w-full left-0 right-0">
     <div class="header relative flex justify-between items-center py-6 px-4">
       <div>
@@ -11,15 +12,72 @@
           <li><a href="#">Blog</a></li>
         </ul>
       </div>
-      <div>
-        <img src="../assets/images/cart.png" class="cursor-pointer" />
-      </div>
+      <button @click="openCart" class="cursor-pointer z-40 relative">
+        <span 
+          class="quantity-bag bg-main-color rounded-full w-5 h-5 p-2 absolute text-xs -right-2">
+          {{ productsInBag.length }}
+        </span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          fill="#000000"
+          height="25px"
+          width="25px"
+          version="1.1"
+          id="Capa_1"
+          viewBox="0 0 483.1 483.1"
+          xml:space="preserve"
+        >
+          <g>
+            <path
+              d="M434.55,418.7l-27.8-313.3c-0.5-6.2-5.7-10.9-12-10.9h-58.6c-0.1-52.1-42.5-94.5-94.6-94.5s-94.5,42.4-94.6,94.5h-58.6   c-6.2,0-11.4,4.7-12,10.9l-27.8,313.3c0,0.4,0,0.7,0,1.1c0,34.9,32.1,63.3,71.5,63.3h243c39.4,0,71.5-28.4,71.5-63.3   C434.55,419.4,434.55,419.1,434.55,418.7z M241.55,24c38.9,0,70.5,31.6,70.6,70.5h-141.2C171.05,55.6,202.65,24,241.55,24z    M363.05,459h-243c-26,0-47.2-17.3-47.5-38.8l26.8-301.7h47.6v42.1c0,6.6,5.4,12,12,12s12-5.4,12-12v-42.1h141.2v42.1   c0,6.6,5.4,12,12,12s12-5.4,12-12v-42.1h47.6l26.8,301.8C410.25,441.7,389.05,459,363.05,459z"
+            />
+          </g>
+        </svg>
+      </button>
     </div>
   </div>
 </template>
+<script lang="ts">
+import { computed, ref } from 'vue'
+import ShoppingBag from './ShoppingBag.vue'
+import { useProducts } from '../stores/products';
+
+export default {
+  components: {
+    ShoppingBag,
+  },
+  setup() {
+    const showCart = ref(false);
+
+    const openCart = () => {
+      showCart.value = true;
+    }
+
+    const closeCart = () => {
+      showCart.value = false;
+    }
+
+  const store = useProducts();
+  const productsInBag = computed(() => store.productsInBag);
+
+  return {
+    showCart,
+    productsInBag,
+    openCart,
+    closeCart
+  }
+}
+}
+</script>
 <style>
 .header {
   max-width: 1400px;
   margin: 0 auto;
+}
+.quantity-bag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
