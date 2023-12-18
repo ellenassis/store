@@ -1,7 +1,16 @@
 <template lang="">
-	<div>
-		
+<div class="footer">
+	<div class="footer-content">
+		<p>a</p>
 	</div>
+</div>
 </template>
-<style lang=""></style>
+<style>
+.footer {
+	background: #F9B9B7;
+}
+.footer-content {
+	max-width: 1400px;
+}
+</style>
   
