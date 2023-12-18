@@ -6,6 +6,7 @@ interface Product {
 	title: string;
 	image: string;
 	price: number;
+	total: Number;
   }
 
 export const useProducts = defineStore('product', {
@@ -18,6 +19,11 @@ export const useProducts = defineStore('product', {
 		  },
 		  addProductInBag(product: Product) {
 			this.productsInBag.push(product);
-		  }
+		  },
 	},
+	getters: {
+		totalInBag(): number {
+			return this.productsInBag.reduce((total, product) => total + product.price, 0);
+		}
+	}
 })

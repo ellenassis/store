@@ -2,7 +2,7 @@
   <transition name="fade">
     <div v-show="show" class="cart-container">
       <h3 class="font-bold">Resumo da sacola</h3>
-      <div class="cart-products-container mt-16">
+      <div class="cart-products-container" v-if="productsInBag.length">
         <div class="cart-products my-8 relative" v-for="(product, index) in productsInBag" :key="index">
           <div>
             <img :src="product.image" class="max-w-[5rem]" />
@@ -61,6 +61,13 @@
           />
         </svg>
       </button>
+      <div class="resume-bag">
+        <div class="mt-4 flex justify-between items-center text-xl font-bold">
+          <p>Total</p>
+          <p>$ {{totalInBag}}</p>
+        </div>
+        <button>Fechar pedido</button>
+      </div>
     </div>
   </transition>
 </template>
@@ -78,6 +85,7 @@ export default {
   setup(props, { emit }) {
     const store = useProducts()
     const productsInBag = computed(() => store.productsInBag)
+    const totalInBag = computed(() => store.totalInBag.toFixed(2))
 
     const closeCart = () => {
       emit('close')
@@ -92,7 +100,8 @@ export default {
     return {
       productsInBag,
       closeCart,
-      deleteProduct
+      deleteProduct,
+      totalInBag
     }
   }
 }
@@ -115,6 +124,20 @@ export default {
   padding-bottom: 1rem;
   border-bottom: 1px solid rgb(225, 223, 223);
 }
+.cart-products-container {
+  overflow: auto;
+  height: 80%;
+}
+.cart-products-container::-webkit-scrollbar {
+  width: 5px;
+}
+.cart-products-container::-webkit-scrollbar-thumb {
+  background: #dddddd;
+  border-radius: 10px;
+}
+.cart-products-container::-webkit-scrollbar-track {
+  margin: 2rem 0 ;
+}
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s;
@@ -127,7 +150,18 @@ export default {
 
 @media screen and (min-width: 450px) {
   .cart-container {
-    width: 450px;
+    width: 400px;
   }
+}
+
+.resume-bag button {
+  background: #F06C9B;
+  padding: 0.2rem 1rem;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: 700;
+  width: 100%;
+  height: 50px;
+  margin-top: 2rem;
 }
 </style>
