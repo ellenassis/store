@@ -8,8 +8,13 @@
             <img :src="product.image" class="max-w-[5rem]" />
           </div>
           <div>
-            <h3 class="text-sm font-bold mt-2 h-12">{{ product.title }}</h3>
-            <p class="font-bold text-xl">${{ product.price }}</p>
+            <h3 class="text-sm font-bold mt-2 mb-2 h-12">{{ product.title }}</h3>
+            <p class="font-bold text-xl mb-2">${{ product.price }}</p>
+            <div class="flex items-center">
+              <button class="btn-increase" @click="increase(product)">+</button>
+              <p class="quantity-box"> {{ product.quantity }}</p>
+              <button class="btn-decrease" @click="decrease(product)">-</button>
+            </div>
           </div>
           <button class="absolute right-4 bottom-4" @click="deleteProduct(product.id)">
             <svg
@@ -75,6 +80,14 @@
 import { computed } from 'vue'
 import { useProducts } from '../stores/products'
 
+interface Product {
+  id: number;
+  title: string;
+  image: string;
+  price: number;
+  quantity: number;
+}
+
 export default {
   props: {
     show: {
@@ -91,6 +104,18 @@ export default {
       emit('close')
     }
 
+    const increase = (product: Product) => {
+      product.quantity ++;
+    }
+
+    const decrease = (product: Product) => {
+      if(product.quantity > 1) {
+        return product.quantity --;
+      } 
+
+      deleteProduct(product.id);
+    }
+
     const deleteProduct = (productId: Number) => {
       store.productsInBag = store.productsInBag.filter(products => {
         return products.id !== productId;
@@ -101,7 +126,9 @@ export default {
       productsInBag,
       closeCart,
       deleteProduct,
-      totalInBag
+      totalInBag,
+      increase,
+      decrease
     }
   }
 }
@@ -146,6 +173,17 @@ export default {
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
+}
+
+.btn-decrease, .btn-increase {
+  border: 1px solid #3333;
+  padding: 0 6px;
+  width: 1.5rem;
+}
+
+.quantity-box {
+  width: 1.5rem;
+  text-align: center;
 }
 
 @media screen and (min-width: 450px) {
