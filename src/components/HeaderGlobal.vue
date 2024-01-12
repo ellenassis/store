@@ -5,13 +5,6 @@
       <div>
         <span class="text-4xl font-bold text-main-color"><a href="#">Muar.</a></span>
       </div>
-      <div class="absolute right-0 left-0">
-        <ul class="flex justify-center gap-8 font-medium">
-          <li class="text-main-color font-bold"><a href="#">Home</a></li>
-          <li><a href="#">Store</a></li>
-          <li><a href="#">Blog</a></li>
-        </ul>
-      </div>
       <button @click="openCart" class="cursor-pointer z-40 relative">
         <span 
           class="quantity-bag bg-main-color rounded-full w-5 h-5 p-2 absolute text-xs -right-2">
