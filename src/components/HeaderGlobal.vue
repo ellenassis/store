@@ -3,7 +3,7 @@
   <div class="bg-white fixed z-10 w-full left-0 right-0">
     <div class="header relative flex justify-between items-center py-6 px-4">
       <div>
-        <span class="text-4xl font-bold text-main-color"><a href="#">Muar.</a></span>
+        <span class="text-4xl font-bold text-main-color"><a href="#">Chic Avenue.</a></span>
       </div>
       <button @click="openCart" class="cursor-pointer z-40 relative">
         <span 

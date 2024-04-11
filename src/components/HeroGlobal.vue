@@ -1,7 +1,7 @@
 <template lang="">
-  <div class="bg-hero pt-40 px-10">
+  <div class="bg-hero pt-40 md:px-10">
     <div
-      class="relative page-content hero flex flex-col justify-between items-center gap-8 lg:flex-row pt-4"
+      class="relative page-content hero flex flex-col justify-between items-center gap-8 lg:flex-row"
     >
       <div class="text-center lg:text-start">
         <h1 class="mb-6 uppercase">Fashion for lifestyle.</h1>
@@ -15,7 +15,7 @@
 </template>
 <style>
 .hero {
-  min-height: 70vh;
+  min-height: 60vh;
 }
 .bg-hero {
   background-image: url('../assets/images/bg-hero.png');
