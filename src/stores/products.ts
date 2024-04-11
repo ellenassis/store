@@ -28,9 +28,19 @@ export const useProducts = defineStore('product', {
 			} else {
 				this.productsInBag.push({...product, quantity: 1});
 			}
-
-			productsInBagStorage.value = this.productsInBag;
+			this.updateProductsInBagStorage();
 		  },
+		  deleteProductInBag(productId: Number) {
+			this.productsInBag = this.productsInBag.filter(product => product.id !== productId);
+			this.updateProductsInBagStorage();
+		  },
+		  deleteAllProducts() {
+			this.productsInBag = [];
+			this.updateProductsInBagStorage();
+		  },
+		  updateProductsInBagStorage() {
+			productsInBagStorage.value = this.productsInBag;
+		}
 	},
 	getters: {
 		totalInBag(): number {
