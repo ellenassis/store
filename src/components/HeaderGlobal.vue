@@ -5,6 +5,10 @@
       <div>
         <span class="text-4xl font-bold text-main-color"><a href="#">Chic Avenue.</a></span>
       </div>
+      <ul class="header-links flex gap-4 w-[25%]">
+        <li @click="goToHome" :class="{ 'active-link': isRouterActive('/') }">Home</li>
+        <li @click="goToAbout" :class="{ 'active-link': isRouterActive('/about') }">About us</li>
+      </ul>
       <button @click="openCart" class="cursor-pointer z-40 relative">
         <span 
           class="quantity-bag bg-main-color rounded-full w-5 h-5 p-2 absolute text-xs -right-2">
@@ -35,12 +39,27 @@
 import { computed, ref } from 'vue'
 import ShoppingBag from './ShoppingBag.vue'
 import { useProducts } from '../stores/products';
+import { useRouter } from 'vue-router'
 
 export default {
   components: {
     ShoppingBag,
   },
   setup() {
+    const router = useRouter()
+
+    const goToAbout = () => {
+      router.push('/about')
+    }
+
+    const goToHome = () => {
+      router.push('/')
+    }
+
+    const isRouterActive = (routePath: string) => {
+      return router.currentRoute.value.path === routePath;
+    }
+
     const showCart = ref(false);
 
     const openCart = () => {
@@ -50,15 +69,19 @@ export default {
     const closeCart = () => {
       showCart.value = false;
     }
-
   const store = useProducts();
   const productsInBag = computed(() => store.productsInBag);
+
+
 
   return {
     showCart,
     productsInBag,
     openCart,
-    closeCart
+    closeCart,
+    goToHome,
+    goToAbout,
+    isRouterActive
   }
 }
 }
@@ -68,9 +91,15 @@ export default {
   max-width: 1400px;
   margin: 0 auto;
 }
+.header-links li {
+  cursor: pointer;
+}
 .quantity-bag {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.active-link {
+  border-bottom: 2px solid #F06C9B;
 }
 </style>

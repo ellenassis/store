@@ -120,24 +120,9 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      isModalVisible: ref(false)
-    }
-  },
-  methods: {
-    showModal() {
-      this.isModalVisible = true;
-    },
-    handleConfirmDelete () {
-      this.deleteAllProducts();
-      this.isModalVisible = false;
-    },
-    handleCloseModal() {
-      this.isModalVisible = false;
-    }
-  },
   setup(props, { emit }) {
+    const isModalVisible = ref(false);
+
     const store = useProducts()
     const productsInBag = computed(() => store.productsInBag)
     const totalInBag = computed(() => store.totalInBag.toFixed(2))
@@ -166,14 +151,31 @@ export default {
       store.deleteAllProducts();
     }
 
+    const handleCloseModal = () => {
+      isModalVisible.value = false;
+    }
+
+    const handleConfirmDelete = () => {
+      deleteAllProducts();
+      isModalVisible.value = false;
+    }
+
+    const showModal = () => {
+      isModalVisible.value = true;
+    }
+
     return {
+      isModalVisible,
       productsInBag,
       closeCart,
       deleteAllProducts,
       deleteProduct,
       totalInBag,
       increase,
-      decrease
+      decrease,
+      handleCloseModal,
+      handleConfirmDelete,
+      showModal,
     }
   }
 }
